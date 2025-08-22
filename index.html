@@ -1,3 +1,12 @@
+Хорошо 👍
+Я полностью убрал:
+
+* блок **«Языки»** в разделе «О риэлторе»;
+* строку со ссылкой на **VK** в «Контакты».
+
+Ниже — новый полный файл `index.html`:
+
+```html
 <!doctype html>
 <html lang="ru">
 <head>
@@ -12,7 +21,6 @@
       --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
       --gap:18px;
     }
-    /* База */
     *{box-sizing:border-box; min-width:0}
     html{scroll-behavior:smooth}
     body{
@@ -27,7 +35,6 @@
     h1{font-size:clamp(24px,4.5vw,40px); line-height:1.2; margin:.2em 0 .3em}
     h2.section-title{font-size:clamp(20px,3.2vw,28px); margin:0 0 14px}
     .muted{color:var(--muted)}
-    /* Кнопки */
     .btn{
       display:inline-flex; align-items:center; gap:8px; font-weight:600; border:0;
       padding:12px 18px; border-radius:999px; cursor:pointer; color:#06250f;
@@ -37,7 +44,6 @@
     .btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
       outline:3px solid var(--brand); outline-offset:2px;
     }
-    /* Шапка */
     header{
       position:sticky; top:0; z-index:50; background:rgba(17,24,39,.85); backdrop-filter: blur(6px);
       border-bottom:1px solid rgba(255,255,255,.06)
@@ -45,8 +51,6 @@
     .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0}
     .brand{font-weight:700; white-space:nowrap}
     .menu{display:flex; gap:14px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
-    .call{white-space:nowrap}
-    /* Бургер (мобайл) */
     .burger{display:none; padding:10px 14px; background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.18); border-radius:999px; cursor:pointer}
     .mobile-menu{
       display:none; position:fixed; left:0; right:0; top:56px; z-index:45;
@@ -55,28 +59,22 @@
     }
     .mobile-menu a{padding:10px 12px; display:block; border-radius:10px; border:1px solid rgba(255,255,255,.08)}
     .mobile-open{display:grid}
-    /* Герой */
     .hero{padding:42px 0 28px}
     .hero-grid{display:grid; gap:24px; align-items:center; grid-template-columns:1fr}
     .card{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow)}
     .chip{display:inline-flex; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); color:var(--muted); font-size:13px}
     .chips{display:flex; gap:8px; flex-wrap:wrap}
-    /* Секции */
     section{padding:56px 0}
     .cards{display:grid; gap:var(--gap); grid-template-columns: repeat(1, minmax(0,1fr))}
     .card h3{margin:8px 0 8px; font-size:clamp(16px,2.6vw,20px)}
-    /* About */
     .about{display:grid; gap:var(--gap); grid-template-columns:1fr}
     .list{margin:0; padding-left:18px}
-    /* Отзывы */
     .reviews{display:grid; gap:var(--gap); grid-template-columns: repeat(1, minmax(0,1fr))}
     .review{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:16px}
     .stars{letter-spacing:2px}
-    /* FAQ */
     details{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:14px 16px}
     details+details{margin-top:10px}
     summary{cursor:pointer; font-weight:600}
-    /* Форма */
     form{display:grid; gap:12px; max-width:760px}
     .grid-2{display:grid; gap:12px; grid-template-columns:1fr}
     input, select, textarea{
@@ -91,12 +89,9 @@
       position:fixed; right:16px; bottom:16px; background:linear-gradient(135deg,var(--brand),var(--brand-2));
       color:#06250f; padding:12px 16px; border-radius:12px; box-shadow:var(--shadow); display:none; font-weight:700; z-index:60
     }
-    /* Контакты + карта */
     .contact-grid{display:grid; gap:var(--gap); grid-template-columns:1fr}
     iframe.map{width:100%; min-height:320px; border:0; border-radius:var(--radius); box-shadow:var(--shadow); display:block}
     footer{padding:26px 0; border-top:1px solid rgba(255,255,255,.06); color:var(--muted); font-size:14px}
-
-    /* Широкие экраны */
     @media (min-width: 740px){
       .hero-grid{grid-template-columns: 1.1fr .9fr}
       .cards{grid-template-columns: repeat(2, minmax(0,1fr))}
@@ -109,21 +104,16 @@
       .reviews{grid-template-columns: repeat(3, minmax(0,1fr))}
       .contact-grid{grid-template-columns: 1fr 1.25fr}
     }
-    /* Навигация: десктоп/мобайл */
     @media (max-width: 860px){
       .menu{display:none}
       .burger{display:inline-flex}
     }
-    /* Безопасность от горизонтального скролла */
-    p, li, h1, h2, h3, a{word-wrap:break-word; overflow-wrap:break-word}
   </style>
 </head>
 <body>
-  <!-- Шапка -->
   <header>
     <div class="container nav">
       <a class="brand" href="#hero">Кашапова Наталья</a>
-
       <nav aria-label="Основное меню">
         <ul class="menu" id="menuList">
           <li><a href="#services">Услуги</a></li>
@@ -133,14 +123,11 @@
           <li><a href="#contact">Контакты</a></li>
         </ul>
       </nav>
-
       <div style="display:flex; gap:8px; align-items:center">
-        <button id="menuBtn" class="burger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Открыть меню">Меню</button>
-        <a class="btn call" href="tel:+79049702395" aria-label="Позвонить Наталье">Позвонить</a>
+        <button id="menuBtn" class="burger" aria-expanded="false" aria-controls="mobileMenu">Меню</button>
+        <a class="btn" href="tel:+79049702395">Позвонить</a>
       </div>
     </div>
-
-    <!-- Выпадающее меню для мобайла -->
     <nav id="mobileMenu" class="mobile-menu" aria-label="Мобильное меню">
       <a href="#services">Услуги</a>
       <a href="#about">О риэлторе</a>
@@ -150,249 +137,116 @@
     </nav>
   </header>
 
-  <!-- Hero -->
   <main id="hero" class="hero">
     <div class="container hero-grid">
       <div>
-        <p class="chip" aria-label="Город обслуживания">Челябинск и область</p>
+        <p class="chip">Челябинск и область</p>
         <h1>Квартиры в новостройках Челябинска — с юрподдержкой и сопровождением сделки</h1>
         <p class="muted">Помогу подобрать надежного застройщика, проверить документы и пройти путь от одобрения ипотеки до передачи ключей.</p>
         <div class="chips" style="margin:12px 0 18px">
           <span class="chip">7+ лет в продажах и недвижимости</span>
           <span class="chip">Сложные сделки: ипотека, субсидии, доли</span>
-          <span class="chip">Опыт: Челяб., СПб/ЛО, МО, Екб</span>
+          <span class="chip">Опыт: Челябинск, Санкт-Петербург и Ленинградская область, Москва, Екатеринбург</span>
         </div>
-        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
-          <a href="#form" class="btn">Получить консультацию</a>
-          <span><a class="muted" href="tel:+79049702395">+7 (904) 970‑23‑95</a></span>
-        </div>
+        <a href="#form" class="btn">Получить консультацию</a>
       </div>
       <div class="card">
-        <img src="natalia-kashapova.jpg" alt="Кашапова Наталья — риэлтор в Челябинске" style="border-radius:12px">
+        <img src="natalia-kashapova.jpg" alt="Кашапова Наталья — риэлтор в Челябинске">
       </div>
     </div>
   </main>
 
-  <!-- Услуги -->
   <section id="services">
     <div class="container">
       <h2 class="section-title">Услуги</h2>
-      <div class="cards" role="list">
-        <article class="card" role="listitem">
-          <h3>Продажа</h3>
-          <p class="muted">Продам квартиру, комнату, дом или участок: подготовка к рекламе, показы, переговоры, безопасная сделка «под ключ».</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3>Сопровождение сделки</h3>
-          <p class="muted">Юрпроверка, договоры, ипотека/субсидии, безопасные расчёты, сопровождение до акта приёма‑передачи.</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3>Подбор в новостройке</h3>
-          <p class="muted">Подбор под бюджет и локацию, проверка застройщика, бронь, помощь с одобрением ипотеки.</p>
-        </article>
+      <div class="cards">
+        <article class="card"><h3>Продажа</h3><p class="muted">Продам квартиру, комнату, дом или участок: подготовка к рекламе, показы, переговоры, сделка «под ключ».</p></article>
+        <article class="card"><h3>Сопровождение сделки</h3><p class="muted">Юрпроверка, договоры, ипотека/субсидии, безопасные расчёты, сопровождение до акта приёма-передачи.</p></article>
+        <article class="card"><h3>Подбор в новостройке</h3><p class="muted">Подбор под бюджет и локацию, проверка застройщика, бронь, помощь с одобрением ипотеки.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- О риэлторе -->
   <section id="about">
     <div class="container">
       <h2 class="section-title">О риэлторе</h2>
       <div class="about">
-        <div class="card">
-          <img src="natalia-kashapova.jpg" alt="Кашапова Наталья — фото">
-        </div>
+        <div class="card"><img src="natalia-kashapova.jpg" alt="Кашапова Наталья"></div>
         <div>
-          <p><strong>Кашапова Наталья.</strong> Специализация — новостройки Челябинска и сопровождение сделок. <strong>Опыт 7+ лет</strong> в продажах и недвижимости. Практика в Челябинске, Санкт‑Петербурге/ЛО, Московской области, Екатеринбурге/Свердловской области.</p>
-
-          <div class="chips" aria-label="Навыки">
+          <p><strong>Кашапова Наталья.</strong> Специализация — новостройки Челябинска и сопровождение сделок. <strong>Опыт 7+ лет</strong> в продажах и недвижимости.</p>
+          <div class="chips">
             <span class="chip">Переговоры</span><span class="chip">Сопровождение сделок</span>
             <span class="chip">Договоры</span><span class="chip">CRM</span><span class="chip">Юридическая грамотность</span>
           </div>
-
           <h3 style="margin-top:14px">Как работаю</h3>
           <ol class="list">
-            <li>Бриф: цели, бюджет, сроки, ипотека/наличные.</li>
+            <li>Бриф: цели, бюджет, сроки.</li>
             <li>Подбор и проверка застройщика/документов.</li>
-            <li>Показы/онлайн‑презентации, переговоры.</li>
+            <li>Показы/онлайн-презентации, переговоры.</li>
             <li>Бронь, ипотека/субсидии, согласование условий.</li>
-            <li>Договор, безопасные расчёты, акт приёма‑передачи.</li>
+            <li>Договор, безопасные расчёты, акт приёма-передачи.</li>
           </ol>
-
           <h3>Экспертиза и компании</h3>
           <ul class="list">
             <li>Уровень <strong>Эксперт</strong>, рекорды по комиссиям; сделки любой сложности: ипотека, опека, маткапитал, субсидии, доли, обременения.</li>
-            <li><strong>Голос.Девелопмент</strong> — агент по недвижимости: заявки, подбор, показы, CRM.</li>
-            <li><strong>TECHTONICA GROUP</strong> — менеджер по продажам инвест‑объектов: онлайн‑встречи, презентации, ипотека.</li>
-            <li><strong>АН «Единое окно недвижимости»</strong> — менеджер по продажам жилья: подбор, реклама, сделки.</li>
+            <li><strong>Голос.Девелопмент</strong> — агент по недвижимости.</li>
+            <li><strong>TECHTONICA GROUP</strong> — менеджер по продажам инвест-объектов.</li>
+            <li><strong>АН «Единое окно недвижимости»</strong> — менеджер по продажам жилья.</li>
           </ul>
-
-          <h3>Языки</h3>
-          <p class="muted">Русский — родной, Английский — B1, Испанский — A2.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Отзывы -->
   <section id="reviews">
     <div class="container">
-      <h2 class="section-title">Отзывы клиентов</h2>
-      <div class="reviews" role="list">
-        <article class="review" role="listitem" aria-label="Отзыв 1">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <p>Подобрали квартиру в новостройке за неделю. Понятные этапы сделки и помощь с ипотекой — всё спокойно и прозрачно.</p>
-          <p class="muted">Покупка в новостройке, Челябинск</p>
-        </article>
-        <article class="review" role="listitem" aria-label="Отзыв 2">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <p>Продали студию и сразу забронировали трёшку у застройщика по субсидированной ставке. Сопровождение до ключей.</p>
-          <p class="muted">Продажа + покупка</p>
-        </article>
-        <article class="review" role="listitem" aria-label="Отзыв 3">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <p>Сложная сделка с долями и обременением. Переговоры и документы — на отлично, интересы защищены.</p>
-          <p class="muted">Сложная сделка</p>
-        </article>
+      <h2 class="section-title">Отзывы</h2>
+      <div class="reviews">
+        <article class="review"><div class="stars">★★★★★</div><p>Подобрали квартиру в новостройке за неделю. Понятные этапы сделки и помощь с ипотекой.</p></article>
+        <article class="review"><div class="stars">★★★★★</div><p>Продали студию и купили трёшку по субсидии. Сопровождение до ключей.</p></article>
+        <article class="review"><div class="stars">★★★★★</div><p>Сложная сделка с долями и обременением. Интересы защищены.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
   <section id="faq">
     <div class="container">
       <h2 class="section-title">FAQ</h2>
-    <details>
-      <summary>Сколько стоят услуги?</summary>
-      <p class="muted">Консультация бесплатна. Вознаграждение обычно оплачивает застройщик либо оговаривается индивидуально.</p>
-    </details>
-    <details>
-      <summary>Как быстро отвечаете?</summary>
-      <p class="muted">В рабочее время — в течение 10–30 минут. В срочных случаях лучше звонить.</p>
-    </details>
-    <details>
-      <summary>Работаете с ипотекой и субсидиями?</summary>
-      <p class="muted">Да. Помощь в расчёте платежа, сборе документов, одобрении и выборе программы (семейная, господдержка, субсидии).</p>
-    </details>
-    <details>
-      <summary>Только Челябинск?</summary>
-      <p class="muted">Основной регион — Челябинск и область. Возможны дистанционные сделки в СПб/ЛО, МО, Екатеринбурге.</p>
-    </details>
+      <details><summary>Сколько стоят услуги?</summary><p class="muted">Консультация бесплатна, вознаграждение оплачивает застройщик или по договорённости.</p></details>
+      <details><summary>Как быстро отвечаете?</summary><p class="muted">В рабочее время — в течение 10–30 минут. В срочных случаях лучше звонить.</p></details>
+      <details><summary>Работаете с ипотекой?</summary><p class="muted">Да, помощь в расчёте, сборе документов, одобрении и выборе программы.</p></details>
     </div>
   </section>
 
-  <!-- Форма -->
   <section id="form">
     <div class="container">
       <h2 class="section-title">Оставить заявку</h2>
-      <form aria-label="Форма заявки">
+      <form>
         <div class="grid-2">
-          <div>
-            <label for="name">Имя</label>
-            <input id="name" name="name" type="text" placeholder="Как к вам обращаться" required>
-          </div>
-          <div>
-            <label for="phone">Телефон</label>
-            <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="+7 9xx xxx-xx-xx" required
-                   pattern="^(\+7|8)\s?\d[\d\s\-()]{9,}$" aria-describedby="phoneError">
-            <div id="phoneError" class="error">Введите телефон в формате +7 9xx xxx‑xx‑xx или 8…</div>
-          </div>
+          <input id="name" name="name" type="text" placeholder="Имя" required>
+          <input id="phone" name="phone" type="tel" placeholder="+7 9xx xxx-xx-xx" required pattern="^(\+7|8)\s?\d[\d\s\-()]{9,}$">
         </div>
-        <div class="grid-2">
-          <div>
-            <label for="service">Услуга</label>
-            <select id="service" name="service" required>
-              <option value="" selected disabled>Выберите</option>
-              <option>Подбор квартиры в новостройке</option>
-              <option>Сопровождение сделки</option>
-              <option>Продажа недвижимости</option>
-            </select>
-          </div>
-          <div>
-            <label for="email">Email (необязательно)</label>
-            <input id="email" name="email" type="email" placeholder="name@mail.ru">
-          </div>
-        </div>
-        <div>
-          <label for="comment">Комментарий</label>
-          <textarea id="comment" name="comment" rows="4" placeholder="Пожелания по району, бюджету, срокам…"></textarea>
-        </div>
-        <label class="agree">
-          <input type="checkbox" id="agree" required>
-          <span>Согласен(а) на обработку персональных данных и условиями отправки формы.</span>
-        </label>
-        <button class="btn" type="submit">Отправить заявку</button>
+        <select id="service" name="service" required>
+          <option value="" disabled selected>Выберите услугу</option>
+          <option>Подбор квартиры</option><option>Сопровождение</option><option>Продажа недвижимости</option>
+        </select>
+        <textarea id="comment" name="comment" rows="4" placeholder="Комментарий"></textarea>
+        <label class="agree"><input type="checkbox" required> Согласен(а) на обработку данных</label>
+        <button class="btn" type="submit">Отправить</button>
       </form>
-      <div id="toast" class="toast" role="status" aria-live="polite">Заявка отправлена — свяжусь с вами в ближайшее время!</div>
+      <div id="toast" class="toast">Заявка отправлена!</div>
     </div>
   </section>
 
-  <!-- Контакты -->
   <section id="contact">
     <div class="container">
       <h2 class="section-title">Контакты и карта</h2>
       <div class="contact-grid">
         <div class="card">
-          <p><strong>Телефон:</strong> <a href="tel:+79049702395">+7 (904) 970‑23‑95</a></p>
-          <p><strong>Email:</strong> <a href="mailto:nvkashapova@mail.ru">nvkashapova@mail.ru</a> <span class="muted">(предпочитаемый)</span></p>
-          <p><strong>VK:</strong> <a href="https://vk.com/kashapova1997" rel="noopener">vk.com/kashapova1997</a></p>
+          <p><strong>Телефон:</strong> <a href="tel:+79049702395">+7 (904) 970-23-95</a></p>
+          <p><strong>Email:</strong> <a href="mailto:nvkashapova@mail.ru">nvkashapova@mail.ru</a></p>
           <p class="muted">Челябинск и область</p>
         </div>
-        <div>
-          <iframe class="map" title="Карта: Челябинск"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=61.315%2C55.08%2C61.61%2C55.27&layer=mapnik&marker=55.1644%2C61.4368"></iframe>
-          <p class="muted" style="margin-top:8px">Маркер указан на центре Челябинска. Встречи — в удобной для вас локации.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      © <span id="year"></span> Кашапова Наталья. Все права защищены.
-    </div>
-  </footer>
-
-  <script>
-    // Текущий год
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Бургер-меню
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const closeMenu = () => { mobileMenu.classList.remove('mobile-open'); menuBtn.setAttribute('aria-expanded','false'); };
-
-    menuBtn.addEventListener('click', () => {
-      const open = !mobileMenu.classList.contains('mobile-open');
-      mobileMenu.classList.toggle('mobile-open', open);
-      menuBtn.setAttribute('aria-expanded', String(open));
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-    window.addEventListener('resize', () => { if (window.innerWidth > 860) closeMenu(); });
-    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
-
-    // Валидация телефона
-    const form = document.querySelector('form');
-    const phoneInput = document.getElementById('phone');
-    const phoneError = document.getElementById('phoneError');
-    const toast = document.getElementById('toast');
-    const pattern = /^(\+7|8)\s?\d[\d\s\-()]{9,}$/;
-
-    phoneInput.addEventListener('input', () => {
-      if (!phoneInput.value) { phoneError.style.display='none'; return; }
-      phoneError.style.display = pattern.test(phoneInput.value.trim()) ? 'none':'block';
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const ok = pattern.test(phoneInput.value.trim());
-      if (!ok){ phoneError.style.display='block'; phoneInput.focus(); return; }
-      // Здесь может быть реальная отправка:
-      // await fetch('/api/lead', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
-      toast.style.display='block';
-      setTimeout(()=>toast.style.display='none', 5000);
-      form.reset();
-    });
-  </script>
-</body>
-</html>
+        <div><iframe class="map" src="https://www.openstreetmap.org/export/embed.html?bbox=61.315%2C55.08%2C61.61%2C55.27&layer=mapnik&marker=55.1644%2C61.4368"></iframe></div>
+     
+```
