@@ -39,28 +39,25 @@
       outline:3px solid var(--brand); outline-offset:2px;
     }
 
-    /* ========== ШАПКА САЙТА (Header) ========== */
+    /* ========== ШАПКА САЙТА (Header) — обновлено для мобилок без бургера ========== */
     header{
       position:sticky; top:0; z-index:50; background:rgba(17,24,39,.85); backdrop-filter: blur(6px);
       border-bottom:1px solid rgba(255,255,255,.06)
     }
-    .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0}
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0;
+      flex-wrap:wrap; /* позволяет увести меню на вторую строку */
+    }
     .brand{font-weight:700; white-space:nowrap}
-    .menu{display:flex; gap:14px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
-    .burger{display:none; padding:10px 14px; background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.18); border-radius:999px; cursor:pointer}
 
-    /* ========== Мобильное меню (по умолчанию скрыто) ========== */
-    .mobile-menu{
-      display:none; position:fixed; left:0; right:0; top:0; z-index:1000;
-      background:var(--card); border-bottom:1px solid rgba(255,255,255,.10);
-      box-shadow:var(--shadow); padding:12px 16px; gap:10px
+    /* Главное меню всегда видно */
+    .menu{
+      display:flex; gap:14px; list-style:none; margin:0; padding:0; flex-wrap:nowrap;
     }
-    .mobile-menu a{padding:10px 12px; display:block; border-radius:10px; border:1px solid rgba(255,255,255,.08)}
-    .mobile-open{display:grid}
-    .backdrop{
-      display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); backdrop-filter:blur(2px); z-index:999;
-    }
-    .backdrop.show{display:block}
+    .menu li{flex:0 0 auto}
+
+    /* Убираем следы старого бургера/моб-меню (на всякий) */
+    .burger, .mobile-menu, .backdrop{display:none !important}
 
     /* ========== ГЕРОЙ-БЛОК (Hero) ========== */
     .hero{padding:42px 0 28px}
@@ -124,24 +121,27 @@
       .reviews{grid-template-columns: repeat(3, minmax(0,1fr))}
       .contact-grid{grid-template-columns: 1fr 1.25fr}
     }
+    /* Мобильные правки для шапки: меню уходит на вторую строку и может скроллиться по X */
     @media (max-width: 860px){
-      .menu{display:none}
-      .burger{display:inline-flex}
+      .nav{row-gap:8px}
+      /* Ставим кнопке звонка приоритет в первой строке рядом с брендом */
+      .nav .btn{margin-left:auto}
+      nav[aria-label="Основное меню"]{order:2; width:100%}
+      .menu{
+        width:100%;
+        overflow-x:auto; -webkit-overflow-scrolling:touch;
+        padding-bottom:2px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- ========== ПОДЛОЖКА ДЛЯ МОБИЛЬНОГО МЕНЮ (оверлей) ========== -->
-  <div id="backdrop" class="backdrop" hidden></div>
-
-  <!-- ========== ШАПКА: логотип, основное меню, кнопка звонка, бургер ========== -->
+  <!-- ========== ШАПКА без бургера: бренд + звонок + всегда видимое меню ========== -->
   <header>
     <div class="container nav">
-      <!-- Бренд/логотип с якорем на hero -->
-      <a class="brand" href="#hero">Кашапова Наталья</a>
-
-      <!-- Основная навигация по секциям -->
-      <nav aria-label="Основное меню">
+      <a class="brand" href="#hero" aria-label="Кашапова Наталья — на главную">Кашапова Наталья</a>
+      <a class="btn" href="tel:+79049702395" aria-label="Позвонить Наталье">Позвонить</a>
+      <nav aria-label="Основное меню" style="width:100%">
         <ul class="menu" id="menuList">
           <li><a href="#services">Услуги</a></li>
           <li><a href="#about">О риэлторе</a></li>
@@ -150,28 +150,12 @@
           <li><a href="#contact">Контакты</a></li>
         </ul>
       </nav>
-
-      <!-- Кнопка бургер + CTA "Позвонить" -->
-      <div style="display:flex; gap:8px; align-items:center">
-        <button id="menuBtn" class="burger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Открыть меню">Меню</button>
-        <a class="btn" href="tel:+79049702395">Позвонить</a>
-      </div>
     </div>
-
-    <!-- Выпадающее меню для мобайла -->
-    <nav id="mobileMenu" class="mobile-menu" aria-label="Мобильное меню">
-      <a href="#services">Услуги</a>
-      <a href="#about">О риэлторе</a>
-      <a href="#reviews">Отзывы</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Контакты</a>
-    </nav>
   </header>
 
   <!-- ========== HERO: главный экран с оффером и фото ========== -->
   <main id="hero" class="hero">
     <div class="container hero-grid">
-      <!-- Левая колонка: оффер, преимущества, CTA -->
       <div>
         <p class="chip">Челябинск и область</p>
         <h1>Квартиры в новостройках Челябинска — с юрподдержкой и сопровождением сделки</h1>
@@ -179,11 +163,10 @@
         <div class="chips" style="margin:12px 0 18px">
           <span class="chip">7+ лет в продажах и недвижимости</span>
           <span class="chip">Сложные сделки: ипотека, субсидии, доли</span>
-          <span class="chip">Опыт: Челябинск, Санкт‑Петербург/ЛО, МО, Екатеринбург</span>
+          <span class="chip">Опыт: Челябинск, Санкт-Петербург/ЛО, МО, Екатеринбург</span>
         </div>
         <a href="#form" class="btn">Получить консультацию</a>
       </div>
-      <!-- Правая колонка: карточка с фото -->
       <div class="card">
         <img src="natalia-kashapova.jpg" alt="Кашапова Наталья — риэлтор в Челябинске">
       </div>
@@ -195,11 +178,8 @@
     <div class="container">
       <h2 class="section-title">Услуги</h2>
       <div class="cards">
-        <!-- Услуга: Продажа -->
         <article class="card"><h3>Продажа</h3><p class="muted">Продам квартиру, комнату, дом или участок: подготовка к рекламе, показы, переговоры, сделка «под ключ».</p></article>
-        <!-- Услуга: Сопровождение сделки -->
-        <article class="card"><h3>Сопровождение сделки</h3><p class="muted">Юрпроверка, договоры, ипотека/субсидии, безопасные расчёты, сопровождение до акта приёма‑передачи.</p></article>
-        <!-- Услуга: Подбор в новостройке -->
+        <article class="card"><h3>Сопровождение сделки</h3><p class="muted">Юрпроверка, договоры, ипотека/субсидии, безопасные расчёты, сопровождение до акта приёма-передачи.</p></article>
         <article class="card"><h3>Подбор в новостройке</h3><p class="muted">Подбор под бюджет и локацию, проверка застройщика, бронь, помощь с одобрением ипотеки.</p></article>
       </div>
     </div>
@@ -210,9 +190,7 @@
     <div class="container">
       <h2 class="section-title">О риэлторе</h2>
       <div class="about">
-        <!-- Фото -->
         <div class="card"><img src="natalia-kashapova.jpg" alt="Кашапова Наталья"></div>
-        <!-- Текст: описание, навыки, процесс, опыт -->
         <div>
           <p><strong>Кашапова Наталья.</strong> Специализация — новостройки Челябинска и сопровождение сделок. <strong>Опыт 7+ лет</strong> в продажах и недвижимости.</p>
           <div class="chips">
@@ -223,15 +201,15 @@
           <ol class="list">
             <li>Бриф: цели, бюджет, сроки.</li>
             <li>Подбор и проверка застройщика/документов.</li>
-            <li>Показы/онлайн‑презентации, переговоры.</li>
+            <li>Показы/онлайн-презентации, переговоры.</li>
             <li>Бронь, ипотека/субсидии, согласование условий.</li>
-            <li>Договор, безопасные расчёты, акт приёма‑передачи.</li>
+            <li>Договор, безопасные расчёты, акт приёма-передачи.</li>
           </ol>
           <h3>Экспертиза и компании</h3>
           <ul class="list">
             <li>Уровень <strong>Эксперт</strong>, рекорды по комиссиям; сделки любой сложности: ипотека, опека, маткапитал, субсидии, доли, обременения.</li>
             <li><strong>Голос.Девелопмент</strong> — агент по недвижимости.</li>
-            <li><strong>TECHTONICA GROUP</strong> — менеджер по продажам инвест‑объектов.</li>
+            <li><strong>TECHTONICA GROUP</strong> — менеджер по продажам инвест-объектов.</li>
             <li><strong>АН «Единое окно недвижимости»</strong> — менеджер по продажам жилья.</li>
           </ul>
         </div>
@@ -244,7 +222,6 @@
     <div class="container">
       <h2 class="section-title">Отзывы</h2>
       <div class="reviews">
-        <!-- Карточки отзывов -->
         <article class="review"><div class="stars">★★★★★</div><p>Подобрали квартиру в новостройке за неделю. Понятные этапы сделки и помощь с ипотекой.</p></article>
         <article class="review"><div class="stars">★★★★★</div><p>Продали студию и купили трёшку по субсидии. Сопровождение до ключей.</p></article>
         <article class="review"><div class="stars">★★★★★</div><p>Сложная сделка с долями и обременением. Интересы защищены.</p></article>
@@ -256,7 +233,6 @@
   <section id="faq">
     <div class="container">
       <h2 class="section-title">FAQ</h2>
-      <!-- Вопрос-ответ (аккордеоны) -->
       <details><summary>Сколько стоят услуги?</summary><p class="muted">Консультация бесплатна, вознаграждение оплачивает застройщик или по договорённости.</p></details>
       <details><summary>Как быстро отвечаете?</summary><p class="muted">В рабочее время — в течение 10–30 минут. В срочных случаях лучше звонить.</p></details>
       <details><summary>Работаете с ипотекой?</summary><p class="muted">Да, помощь в расчёте, сборе документов, одобрении и выборе программы.</p></details>
@@ -267,26 +243,19 @@
   <section id="form">
     <div class="container">
       <h2 class="section-title">Оставить заявку</h2>
-      <!-- Форма заявки -->
       <form>
-        <!-- Два поля в сетке -->
         <div class="grid-2">
           <input id="name" name="name" type="text" placeholder="Имя" required>
           <input id="phone" name="phone" type="tel" placeholder="+7 9xx xxx-xx-xx" required pattern="^(\+7|8)\s?\d[\d\s\-()]{9,}$">
         </div>
-        <!-- Выбор услуги -->
         <select id="service" name="service" required>
           <option value="" disabled selected>Выберите услугу</option>
           <option>Подбор </option><option>Сопровождение</option><option>Продажа недвижимости</option>
         </select>
-        <!-- Комментарий -->
         <textarea id="comment" name="comment" rows="4" placeholder="Комментарий"></textarea>
-        <!-- Согласие на обработку данных -->
         <label class="agree"><input type="checkbox" required> Согласен(а) на обработку данных</label>
-        <!-- Кнопка отправки -->
         <button class="btn" type="submit">Отправить</button>
       </form>
-      <!-- Всплывающий тост об успешной отправке -->
       <div id="toast" class="toast">Заявка отправлена!</div>
     </div>
   </section>
@@ -296,13 +265,11 @@
     <div class="container">
       <h2 class="section-title">Контакты и карта</h2>
       <div class="contact-grid">
-        <!-- Контактная карточка -->
         <div class="card">
           <p><strong>Телефон:</strong> <a href="tel:+79049702395">+7 (904) 970-23-95</a></p>
           <p><strong>Email:</strong> <a href="mailto:nvkashapova@mail.ru">nvkashapova@mail.ru</a></p>
           <p class="muted">Челябинск и область</p>
         </div>
-        <!-- Встроенная карта (OpenStreetMap) -->
         <div><iframe class="map" src="https://www.openstreetmap.org/export/embed.html?bbox=61.315%2C55.08%2C61.61%2C55.27&layer=mapnik&marker=55.1644%2C61.4368"></iframe></div>
       </div>
     </div>
@@ -317,46 +284,7 @@
     /* ========== СКРИПТ: текущий год в подвале ========== */
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* ========== СКРИПТ: Мобильное меню (открыть/закрыть, позиционирование) ========== */
-    const headerEl   = document.querySelector('header');
-    const menuBtn    = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const backdrop   = document.getElementById('backdrop');
-
-    function setMenuTop() {
-      // Располагаем меню сразу под шапкой
-      const h = headerEl.getBoundingClientRect().height;
-      mobileMenu.style.top = h + 'px';
-    }
-    function openMenu() {
-      setMenuTop();
-      mobileMenu.classList.add('mobile-open');
-      backdrop.classList.add('show'); backdrop.hidden = false;
-      menuBtn.setAttribute('aria-expanded','true');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMenu() {
-      mobileMenu.classList.remove('mobile-open');
-      backdrop.classList.remove('show'); backdrop.hidden = true;
-      menuBtn.setAttribute('aria-expanded','false');
-      document.body.style.overflow = '';
-    }
-
-    // Клик по бургер‑кнопке
-    menuBtn.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.contains('mobile-open');
-      isOpen ? closeMenu() : openMenu();
-    });
-    // Закрытие по клику на ссылки мобильного меню
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-    // Закрытие по клику на подложку/ESC
-    backdrop.addEventListener('click', closeMenu);
-    window.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-    // Пересчёт позиции при ресайзе/скролле
-    window.addEventListener('resize', () => { setMenuTop(); if (window.innerWidth > 860) closeMenu(); });
-    window.addEventListener('scroll', () => { if (mobileMenu.classList.contains('mobile-open')) setMenuTop(); });
-
-    /* ========== СКРИПТ: Валидация и фальш‑отправка формы (демо) ========== */
+    /* ========== СКРИПТ: Валидация и фальш-отправка формы (демо) ========== */
     const form = document.querySelector('form');
     const phoneInput = document.getElementById('phone');
     const pattern = /^(\+7|8)\s?\d[\d\s\-()]{9,}$/;
@@ -364,15 +292,13 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      // Проверка телефона по паттерну
-      if (!pattern.test(phoneInput.value.trim())) { 
-        phoneInput.focus(); 
-        phoneInput.reportValidity?.(); 
-        return; 
+      if (!pattern.test(phoneInput.value.trim())) {
+        phoneInput.focus();
+        phoneInput.reportValidity?.();
+        return;
       }
-      // Показ тоста и сброс формы (имитация успешной отправки)
-      toast.style.display='block'; 
-      setTimeout(()=>toast.style.display='none', 4000); 
+      toast.style.display='block';
+      setTimeout(()=>toast.style.display='none', 4000);
       form.reset();
 
       // Пример запроса на сервер (раскомментировать и настроить эндпоинт):
