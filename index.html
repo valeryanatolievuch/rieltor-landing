@@ -6,12 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Квартиры в новостройках с юридической поддержкой и сопровождением сделки. Продажа вторичной недвижимости, сопровождение, подбор новостроек, помощь с ипотекой.">
   <style>
+    /* ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ТЕМЫ/ТОКЕНЫ ========== */
     :root{
       --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#94a3b8;
       --brand:#22c55e; --brand-2:#16a34a; --accent:#60a5fa; --danger:#ef4444;
       --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
       --gap:18px;
     }
+
+    /* ========== БАЗОВЫЕ СБРОСЫ И УТИЛИТЫ ========== */
     *{box-sizing:border-box; min-width:0}
     html{scroll-behavior:smooth}
     body{
@@ -36,7 +39,7 @@
       outline:3px solid var(--brand); outline-offset:2px;
     }
 
-    /* Header */
+    /* ========== ШАПКА САЙТА (Header) ========== */
     header{
       position:sticky; top:0; z-index:50; background:rgba(17,24,39,.85); backdrop-filter: blur(6px);
       border-bottom:1px solid rgba(255,255,255,.06)
@@ -45,7 +48,8 @@
     .brand{font-weight:700; white-space:nowrap}
     .menu{display:flex; gap:14px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
     .burger{display:none; padding:10px 14px; background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.18); border-radius:999px; cursor:pointer}
-    /* Mobile menu (hidden by default) */
+
+    /* ========== Мобильное меню (по умолчанию скрыто) ========== */
     .mobile-menu{
       display:none; position:fixed; left:0; right:0; top:0; z-index:1000;
       background:var(--card); border-bottom:1px solid rgba(255,255,255,.10);
@@ -58,33 +62,33 @@
     }
     .backdrop.show{display:block}
 
-    /* Hero */
+    /* ========== ГЕРОЙ-БЛОК (Hero) ========== */
     .hero{padding:42px 0 28px}
     .hero-grid{display:grid; gap:24px; align-items:center; grid-template-columns:1fr}
     .card{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow)}
     .chip{display:inline-flex; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); color:var(--muted); font-size:13px}
     .chips{display:flex; gap:8px; flex-wrap:wrap}
 
-    /* Sections */
+    /* ========== ОБЩИЕ СЕКЦИИ ========== */
     section{padding:56px 0}
     .cards{display:grid; gap:var(--gap); grid-template-columns: repeat(1, minmax(0,1fr))}
     .card h3{margin:8px 0 8px; font-size:clamp(16px,2.6vw,20px)}
 
-    /* About */
+    /* ========== БЛОК "О РИЭЛТОРЕ" ========== */
     .about{display:grid; gap:var(--gap); grid-template-columns:1fr}
     .list{margin:0; padding-left:18px}
 
-    /* Reviews */
+    /* ========== БЛОК ОТЗЫВОВ ========== */
     .reviews{display:grid; gap:var(--gap); grid-template-columns: repeat(1, minmax(0,1fr))}
     .review{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:16px}
     .stars{letter-spacing:2px}
 
-    /* FAQ */
+    /* ========== БЛОК FAQ ========== */
     details{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:14px 16px}
     details+details{margin-top:10px}
     summary{cursor:pointer; font-weight:600}
 
-    /* Form */
+    /* ========== ФОРМА ЗАЯВКИ ========== */
     form{display:grid; gap:12px; max-width:760px}
     .grid-2{display:grid; gap:12px; grid-template-columns:1fr}
     input, select, textarea{
@@ -100,13 +104,14 @@
       color:#06250f; padding:12px 16px; border-radius:12px; box-shadow:var(--shadow); display:none; font-weight:700; z-index:60
     }
 
-    /* Contacts + Map */
+    /* ========== КОНТАКТЫ + КАРТА ========== */
     .contact-grid{display:grid; gap:var(--gap); grid-template-columns:1fr}
     iframe.map{width:100%; min-height:320px; border:0; border-radius:var(--radius); box-shadow:var(--shadow); display:block}
 
+    /* ========== ПОДВАЛ (Footer) ========== */
     footer{padding:26px 0; border-top:1px solid rgba(255,255,255,.06); color:var(--muted); font-size:14px}
 
-    /* Breakpoints */
+    /* ========== АДАПТИВ (брейкпоинты) ========== */
     @media (min-width: 740px){
       .hero-grid{grid-template-columns: 1.1fr .9fr}
       .cards{grid-template-columns: repeat(2, minmax(0,1fr))}
@@ -126,13 +131,16 @@
   </style>
 </head>
 <body>
-  <!-- затемняющая подложка для мобильного меню -->
+  <!-- ========== ПОДЛОЖКА ДЛЯ МОБИЛЬНОГО МЕНЮ (оверлей) ========== -->
   <div id="backdrop" class="backdrop" hidden></div>
 
+  <!-- ========== ШАПКА: логотип, основное меню, кнопка звонка, бургер ========== -->
   <header>
     <div class="container nav">
+      <!-- Бренд/логотип с якорем на hero -->
       <a class="brand" href="#hero">Кашапова Наталья</a>
 
+      <!-- Основная навигация по секциям -->
       <nav aria-label="Основное меню">
         <ul class="menu" id="menuList">
           <li><a href="#services">Услуги</a></li>
@@ -143,6 +151,7 @@
         </ul>
       </nav>
 
+      <!-- Кнопка бургер + CTA "Позвонить" -->
       <div style="display:flex; gap:8px; align-items:center">
         <button id="menuBtn" class="burger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Открыть меню">Меню</button>
         <a class="btn" href="tel:+79049702395">Позвонить</a>
@@ -159,8 +168,10 @@
     </nav>
   </header>
 
+  <!-- ========== HERO: главный экран с оффером и фото ========== -->
   <main id="hero" class="hero">
     <div class="container hero-grid">
+      <!-- Левая колонка: оффер, преимущества, CTA -->
       <div>
         <p class="chip">Челябинск и область</p>
         <h1>Квартиры в новостройках Челябинска — с юрподдержкой и сопровождением сделки</h1>
@@ -172,28 +183,36 @@
         </div>
         <a href="#form" class="btn">Получить консультацию</a>
       </div>
+      <!-- Правая колонка: карточка с фото -->
       <div class="card">
         <img src="natalia-kashapova.jpg" alt="Кашапова Наталья — риэлтор в Челябинске">
       </div>
     </div>
   </main>
 
+  <!-- ========== СЕКЦИЯ УСЛУГ ========== -->
   <section id="services">
     <div class="container">
       <h2 class="section-title">Услуги</h2>
       <div class="cards">
+        <!-- Услуга: Продажа -->
         <article class="card"><h3>Продажа</h3><p class="muted">Продам квартиру, комнату, дом или участок: подготовка к рекламе, показы, переговоры, сделка «под ключ».</p></article>
+        <!-- Услуга: Сопровождение сделки -->
         <article class="card"><h3>Сопровождение сделки</h3><p class="muted">Юрпроверка, договоры, ипотека/субсидии, безопасные расчёты, сопровождение до акта приёма‑передачи.</p></article>
+        <!-- Услуга: Подбор в новостройке -->
         <article class="card"><h3>Подбор в новостройке</h3><p class="muted">Подбор под бюджет и локацию, проверка застройщика, бронь, помощь с одобрением ипотеки.</p></article>
       </div>
     </div>
   </section>
 
+  <!-- ========== СЕКЦИЯ "О РИЭЛТОРЕ" ========== -->
   <section id="about">
     <div class="container">
       <h2 class="section-title">О риэлторе</h2>
       <div class="about">
+        <!-- Фото -->
         <div class="card"><img src="natalia-kashapova.jpg" alt="Кашапова Наталья"></div>
+        <!-- Текст: описание, навыки, процесс, опыт -->
         <div>
           <p><strong>Кашапова Наталья.</strong> Специализация — новостройки Челябинска и сопровождение сделок. <strong>Опыт 7+ лет</strong> в продажах и недвижимости.</p>
           <div class="chips">
@@ -220,10 +239,12 @@
     </div>
   </section>
 
+  <!-- ========== СЕКЦИЯ ОТЗЫВОВ ========== -->
   <section id="reviews">
     <div class="container">
       <h2 class="section-title">Отзывы</h2>
       <div class="reviews">
+        <!-- Карточки отзывов -->
         <article class="review"><div class="stars">★★★★★</div><p>Подобрали квартиру в новостройке за неделю. Понятные этапы сделки и помощь с ипотекой.</p></article>
         <article class="review"><div class="stars">★★★★★</div><p>Продали студию и купили трёшку по субсидии. Сопровождение до ключей.</p></article>
         <article class="review"><div class="stars">★★★★★</div><p>Сложная сделка с долями и обременением. Интересы защищены.</p></article>
@@ -231,58 +252,72 @@
     </div>
   </section>
 
+  <!-- ========== СЕКЦИЯ FAQ ========== -->
   <section id="faq">
     <div class="container">
       <h2 class="section-title">FAQ</h2>
+      <!-- Вопрос-ответ (аккордеоны) -->
       <details><summary>Сколько стоят услуги?</summary><p class="muted">Консультация бесплатна, вознаграждение оплачивает застройщик или по договорённости.</p></details>
       <details><summary>Как быстро отвечаете?</summary><p class="muted">В рабочее время — в течение 10–30 минут. В срочных случаях лучше звонить.</p></details>
       <details><summary>Работаете с ипотекой?</summary><p class="muted">Да, помощь в расчёте, сборе документов, одобрении и выборе программы.</p></details>
     </div>
   </section>
 
+  <!-- ========== СЕКЦИЯ ФОРМЫ ОБРАТНОЙ СВЯЗИ ========== -->
   <section id="form">
     <div class="container">
       <h2 class="section-title">Оставить заявку</h2>
+      <!-- Форма заявки -->
       <form>
+        <!-- Два поля в сетке -->
         <div class="grid-2">
           <input id="name" name="name" type="text" placeholder="Имя" required>
           <input id="phone" name="phone" type="tel" placeholder="+7 9xx xxx-xx-xx" required pattern="^(\+7|8)\s?\d[\d\s\-()]{9,}$">
         </div>
+        <!-- Выбор услуги -->
         <select id="service" name="service" required>
           <option value="" disabled selected>Выберите услугу</option>
           <option>Подбор квартиры</option><option>Сопровождение</option><option>Продажа недвижимости</option>
         </select>
+        <!-- Комментарий -->
         <textarea id="comment" name="comment" rows="4" placeholder="Комментарий"></textarea>
+        <!-- Согласие на обработку данных -->
         <label class="agree"><input type="checkbox" required> Согласен(а) на обработку данных</label>
+        <!-- Кнопка отправки -->
         <button class="btn" type="submit">Отправить</button>
       </form>
+      <!-- Всплывающий тост об успешной отправке -->
       <div id="toast" class="toast">Заявка отправлена!</div>
     </div>
   </section>
 
+  <!-- ========== СЕКЦИЯ КОНТАКТОВ И КАРТЫ ========== -->
   <section id="contact">
     <div class="container">
       <h2 class="section-title">Контакты и карта</h2>
       <div class="contact-grid">
+        <!-- Контактная карточка -->
         <div class="card">
           <p><strong>Телефон:</strong> <a href="tel:+79049702395">+7 (904) 970-23-95</a></p>
           <p><strong>Email:</strong> <a href="mailto:nvkashapova@mail.ru">nvkashapova@mail.ru</a></p>
           <p class="muted">Челябинск и область</p>
         </div>
+        <!-- Встроенная карта (OpenStreetMap) -->
         <div><iframe class="map" src="https://www.openstreetmap.org/export/embed.html?bbox=61.315%2C55.08%2C61.61%2C55.27&layer=mapnik&marker=55.1644%2C61.4368"></iframe></div>
       </div>
     </div>
   </section>
 
+  <!-- ========== ПОДВАЛ САЙТА ========== -->
   <footer>
     <div class="container">© <span id="year"></span> Кашапова Наталья. Все права защищены.</div>
   </footer>
 
   <script>
-    // Текущий год
+    /* ========== СКРИПТ: текущий год в подвале ========== */
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ====== Мобильное меню ======
+    /* ========== СКРИПТ: Мобильное меню (открыть/закрыть, позиционирование) ========== */
     const headerEl   = document.querySelector('header');
     const menuBtn    = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -307,11 +342,12 @@
       document.body.style.overflow = '';
     }
 
+    // Клик по бургер‑кнопке
     menuBtn.addEventListener('click', () => {
       const isOpen = mobileMenu.classList.contains('mobile-open');
       isOpen ? closeMenu() : openMenu();
     });
-    // Закрытие по клику на ссылки
+    // Закрытие по клику на ссылки мобильного меню
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
     // Закрытие по клику на подложку/ESC
     backdrop.addEventListener('click', closeMenu);
@@ -319,9 +355,8 @@
     // Пересчёт позиции при ресайзе/скролле
     window.addEventListener('resize', () => { setMenuTop(); if (window.innerWidth > 860) closeMenu(); });
     window.addEventListener('scroll', () => { if (mobileMenu.classList.contains('mobile-open')) setMenuTop(); });
-    // ====== /Мобильное меню ======
 
-    // Валидация + фальш‑отправка формы
+    /* ========== СКРИПТ: Валидация и фальш‑отправка формы (демо) ========== */
     const form = document.querySelector('form');
     const phoneInput = document.getElementById('phone');
     const pattern = /^(\+7|8)\s?\d[\d\s\-()]{9,}$/;
@@ -329,10 +364,23 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (!pattern.test(phoneInput.value.trim())) { phoneInput.focus(); phoneInput.reportValidity?.(); return; }
-      toast.style.display='block'; setTimeout(()=>toast.style.display='none', 4000); form.reset();
-      // для сервера:
-      // fetch('/api/lead', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(Object.fromEntries(new FormData(form)))})
+      // Проверка телефона по паттерну
+      if (!pattern.test(phoneInput.value.trim())) { 
+        phoneInput.focus(); 
+        phoneInput.reportValidity?.(); 
+        return; 
+      }
+      // Показ тоста и сброс формы (имитация успешной отправки)
+      toast.style.display='block'; 
+      setTimeout(()=>toast.style.display='none', 4000); 
+      form.reset();
+
+      // Пример запроса на сервер (раскомментировать и настроить эндпоинт):
+      // fetch('/api/lead', {
+      //   method:'POST',
+      //   headers:{'Content-Type':'application/json'},
+      //   body:JSON.stringify(Object.fromEntries(new FormData(form)))
+      // })
     });
   </script>
 </body>
